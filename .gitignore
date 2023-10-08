@@ -57,3 +57,6 @@ rsconnect/
 *_files/
 # html files (output by Quarto)
 *.html
+
+# macOS
+.DS_Store
