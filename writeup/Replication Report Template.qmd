@@ -1,6 +1,6 @@
 ---
-title: "Replication of Study X by Sample & Sample (20xx, Psychological Science)"
-author: "Replication Author[s] (contact information)"
+title: "Replication of Study 1 by McCarthy, Kirsh & Fan (2020, Proceedings of Cognitive Science Society)"
+author: "Sean P. Anderson (seanpaul@stanford.edu)"
 date: "`r format(Sys.time(), '%B %d, %Y')`"
 format:
   html:
@@ -11,9 +11,47 @@ format:
 <!-- Replication reports should all use this template to standardize reporting across projects.  These reports will be public supplementary materials that accompany the summary report(s) of the aggregate results. -->
 
 ## Introduction
-
 [No abstract is needed.]  Each replication project will have a straightforward, no frills report of the study and results.  These reports will be publicly available as supplementary material for the aggregate report(s) of the project as a whole.  Also, to maximize project integrity, the intro and methods will be written and critiqued in advance of data collection.  Introductions can be just 1-2 paragraphs clarifying the main idea of the original study, the target finding for replication, and any other essential information.  It will NOT have a literature review -- that is in the original publication. You can write both the introduction and the methods in past tense.  
 
+### Why this experiment
+My current research ideas are driven by this question: how does making something change you?
+Some of these cognitive changes I hope to elucidate are the mechanisms by which people get better at complex skills.
+Skills like cooking, music, or skateboarding exhibit massive state spaces and nontrivial dynamics.
+Simulation and prediction in these scenarios is necessary for success but requires significant computational resources.
+This implies that increasingly complex solutions are increasingly inaccessible to the mind, given the limit of available cognitive resources.
+Even with small amounts of experience, people learn from interacting with the environment and perform in a way that transcends these limits.
+This requires leveraging the power of abstraction: integrating both action and prediction in a structure that exploits the causal dynamics of the domain.
+
+This experiment studies human learning in a rich task that requires maneuvering in a large state space (block tower construction).
+Their results demonstrate people improving their construction ability in simulated building as they acquire more experience.
+Analyses suggest that participants use overlapping procedures (sequences of block placements) while building a variety of block towers by the end of the experiment.
+While this study's analyses do not investigate procedural abstractions directly, it is likely that subjects are employing some abstractions to facilitate their performance.
+Thus it would be motivating for my research questions to see humans' rapid increase in tower-building performance replicated with a new subject pool.
+Additionally, this experiment contains several software tools that are used frequently in my lab.
+It would be greatly beneficial to become fully familiar with these methods as I work towards contributing more actively to my lab's research program.
+
+### Stimuli, Procedures, and Challenges
+Subjects are presented with silhouettes of discrete block tower arrangements.
+They are asked to re-build these towers in a (also discrete) block placement interface with simulated gravity.
+If at any point the block tower is unstable the trial is ended and a new silhouette is presented.
+Similarly, the trial was ended if the subjects took longer than 60 seconds to build their tower.
+Subjects built eight distinct towers (each hand-crafted by experimenters).
+Four of these towers were control towers, each built once at start of experiment and once again at end of experiment.
+The other four were "repeat" towers, each built four times.
+The build order for repeat towers was intermixed between the control towers.
+Dependent measures of interest included the time to build each tower, the resulting towers built (so that accuracy of reconstruction could be calculated), and the sequence of block placements subjects used to complete the objective.
+Analyses included measuring performance improvements and similarity between build trajectories across the experiment and subjects.
+
+
+Challenges of replicating this study include:
+
+* porting the experiment interface to Prolific (originally run on Amazon mTurk),
+* successfully completing data collection with existing experimenter code (although the original repository is highly documented, and all necessary code is available), and
+* reaching familiarity with original code, to the point where (minor) improvements could be made if possible.
+
+### Repository location
+* [Replication repository](https://github.com/psych251/mccarthy2020)
+* [Original manuscript](https://github.com/psych251/mccarthy2020/blob/develop/original_paper/McCarthy_Kirsh_Fan_2020_CogSci.pdf)
 
 ## Methods
 
