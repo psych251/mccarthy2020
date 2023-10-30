@@ -20,7 +20,7 @@ if (dev_mode) {
   build_duration = 60;
 }
 
-var iterationName = 'Exp2Pilot3_debug';
+var iterationName = 'mccarthy2020cogsci_replication';
 
 var randID =  Math.random().toString(36).substring(2, 15) + Math.random().toString(36).substring(2, 15);
 //console.log(randID);
