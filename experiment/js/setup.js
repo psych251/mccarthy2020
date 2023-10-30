@@ -20,7 +20,7 @@ if (dev_mode) {
   build_duration = 60;
 }
 
-var iterationName = 'mccarthy2020cogsci_replication';
+var iterationName = 'mccarthy2020cogsci_replication_pilotA';
 
 var randID =  Math.random().toString(36).substring(2, 15) + Math.random().toString(36).substring(2, 15);
 //console.log(randID);
