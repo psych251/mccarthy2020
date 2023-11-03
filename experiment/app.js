@@ -100,7 +100,7 @@ var handleInvalidID = function (socket) {
 function checkPreviousParticipant(workerId, callback) {
   var p = { 'workerId': workerId };
   var postData = {
-    dbname: 'block_construction',
+    dbname: 'block_construction_replication2023',
     query: p,
     projection: { '_id': 1 }
   };
@@ -127,7 +127,7 @@ function checkPreviousParticipant(workerId, callback) {
 
 function initializeWithTrials(socket) {
   var gameid = UUID();
-  var colname = 'block-construction-silhouette-exp02';
+  var colname = 'block-construction-silhouette-exp02-replication2023';
   sendPostRequest('http://localhost:8000/db/getstims', {
     json: {
       dbname: 'stimuli',
