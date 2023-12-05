@@ -71,10 +71,18 @@ io.on('connection', function (socket) {
   
 });
 
-var serveFile = function (req, res) {
+FORBIDDEN_FILES = ["auth.json"]
+
+// security patch from 2021
+var serveFile = function(req, res) {
   var fileName = req.params[0];
+  if(FORBIDDEN_FILES.includes(fileName)){
+    // Don't serve files that contain secrets
+    console.log("Forbidden file requested:" + filename);
+    return;
+  }
   console.log('\t :: Express :: file requested: ' + fileName);
-  return res.sendFile(fileName, { root: __dirname });
+  return res.sendFile(fileName, {root: __dirname});
 };
 
 // var handleDuplicate = function (req, res) {

@@ -61,3 +61,6 @@ rsconnect/
 
 # PyCharm
 .idea/
+
+# secrets
+auth.json
