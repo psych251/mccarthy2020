@@ -127,7 +127,8 @@ function checkPreviousParticipant(workerId, callback) {
 
 function initializeWithTrials(socket) {
   var gameid = UUID();
-  var colname = 'block-construction-silhouette-exp02-replication2023';
+  // this colname is used in fetching stimuli from stims database
+  var colname = 'block-construction-silhouette-exp02';
   sendPostRequest('http://localhost:8000/db/getstims', {
     json: {
       dbname: 'stimuli',
