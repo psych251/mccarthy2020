@@ -25,8 +25,8 @@ var floorHeight = canvasHeight / 3;
 var aboveGroundProp = floorY / canvasHeight;
 
 // Metavariables
-const dbname = 'block_construction';
-const colname = 'silhouette';
+const dbname = 'block_construction_replication2023';
+const colname = 'silhouette';  // TODO: what to set colname??
 
 // Stimulus parameters
 var stimCanvasWidth = canvasWidth;
