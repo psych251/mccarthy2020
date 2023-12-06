@@ -24,9 +24,9 @@ knitr::opts_chunk$set(echo = TRUE)
 
 ```{r import}
 
-iterationName = 'Exp2Pilot3_all'
+iterationName = 'mccarthy2020cogsci_replication_pilotA'
 
-df.full = read.csv(paste('../../results/csv/block_silhouette_',iterationName,'_good.csv', sep=''))
+df.full = read.csv(paste('../results/block_construction_replication2023/csv/block_silhouette_',iterationName,'_good.csv', sep=''))
 
 d <- df.full %>%
   select(rawF1DiscreteScore,phase,phase_extended,phase_number,condition,trialNum,targetName,gameID,numBlocks,repetition,blockFell,buildTime,buggy,perfectScore,meanIBI,thinkingTime) %>%
@@ -132,7 +132,7 @@ dpp.boot %>%
     scale_color_manual(values=c("#77798c", "#1c373e")) +
     scale_fill_manual(values=c("#77798c", "#1c373e")) +
     theme(legend.position = 'FALSE', text = element_text(size=16), element_line(size=1), element_rect(size=2, color="#00000"))
-ggsave('../results/plots/cogsci/block_silhouette_accuracy_timeseries.pdf', width=7, height = 10, units='cm', useDingbats = F)
+ggsave('../figures/block_silhouette_accuracy_timeseries.pdf', width=6, height=8, units='cm', useDingbats = F)
 ```
 ## build time
 ```{r}
