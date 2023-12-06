@@ -63,4 +63,5 @@ rsconnect/
 .idea/
 
 # secrets
+auth.txt
 auth.json
