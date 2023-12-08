@@ -63,7 +63,8 @@ Original effect size, power analysis for samples to achieve 80%, 90%, 95% power 
 
 [Planned sample size and/or termination rule, sampling frame, known demographics if any, preselection rules if any.]
 
-Sample will be participants recruited on Prolific (note that original paper recruited 107 participants on Amazon Mechanical Turk). Planned sample size will follow power analyses.
+Sample will be participants recruited on Prolific (note that original paper recruited 107 participants on Amazon Mechanical Turk).
+Planned sample size is 52, which is approaching original sample size up to budget limitations.
 
 ### Materials
 
@@ -180,6 +181,14 @@ Specifically, how do we effectively quantify the similarity between two reconstr
 
 [You can comment this section out prior to final report with data collection.]
 
+# Pilot A Notice
+This is a pilot run on non-naive participants (n=2) to test the experiment and analysis pipeline.
+Pilot A experiment can be accessed here (for a limited time):
+[pilotA live experiment link](https://cogtoolslab.org:8860/experiment.html)
+
+The below analyses and methods have outputs on Pilot A sample, not the actual replication sample.
+
+
 #### Actual Sample
   [Sample size, demographics, data exclusions based on rules spelled out in analysis plan]
 
@@ -196,6 +205,11 @@ In accordance with the analysis plan, I expect to prepare data as follows:
   * each row would be one block placement action.
 * Compute F1 score of completed towers. Also compute 1-0 accuracy of completed towers.
   * likely will make a separate table just for completed towers (in long format)
+
+Data preparation, exclusions, and filtering were performed using original analysis notebook located here:
+[retrieve data from database notebook link](https://github.com/psych251/mccarthy2020/blob/develop/analysis/block_silhouette_cogsci2020_data_generator.ipynb)
+
+The resulting output CSV was stored as `data/pilotA/preprocessed/block_silhouette_mccarthy2020cogsci_replication_pilotA.csv`.
 	
 ```{r include=F}
 ### Data Preparation
@@ -219,6 +233,85 @@ In accordance with the analysis plan, I expect to prepare data as follows:
 * Run linear mixed effects model on time to completion of completed towers (3)
 * Retrieve time to first block placement and run linear model to check effects of attempt, etc. (as in 3 and 1) (4)
 * Compute duration between placement of final block and placement of first block, then run linear effects model (5, 6)
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+library(broom)
+library(tidyverse)
+library(tidyboot)
+library(knitr)
+library(ggplot2)
+library(ggthemes)
+library(broom)
+library(lme4)
+library(lmerTest)
+library(numform)
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+Import and apply preprocessing.
+```{r import}
+
+iterationName = 'mccarthy2020cogsci_replication_pilotA'
+
+df.full = read.csv(paste('../data/pilotA/preprocessed/block_silhouette_',iterationName,'_good.csv', sep=''))
+
+d <- df.full %>%
+  select(rawF1DiscreteScore,phase,phase_extended,phase_number,condition,trialNum,targetName,gameID,numBlocks,repetition,blockFell,buildTime,buggy,perfectScore,meanIBI,thinkingTime) %>%
+  rename('preparationTime'='thinkingTime') %>%
+  rename('accuracy'='rawF1DiscreteScore') %>%
+  mutate(phase=factor(phase, levels=c('pre','repeated','post'))) %>%
+  mutate(phase_extended=factor(phase_extended, levels=c("pre","repeated","post"))) %>%
+  mutate(blockFell = as.logical(blockFell)) %>%
+  mutate(perfect = ifelse(accuracy>0.99, TRUE, FALSE)) %>% 
+  mutate(buildTimeSec = buildTime/1000)
+
+dpp <- d %>% filter(phase %in% c('pre','post')) %>%
+  mutate(phase = factor(phase,levels=c("pre","post")))
+```
+
+F1 score on completed block towers, limear mixed effects model.
+```{r}
+# beware of incompatible Matrix binaries. Follow: https://stackoverflow.com/a/77532685
+## fit model to data just comparing pre/post
+dpp <- d %>% filter(phase %in% c('pre','post')) %>% mutate(phase = factor(phase,levels=c("pre","post")))
+m1 <- lmer(data = dpp, accuracy ~ phase + (1 | gameID) + (1 | targetName))
+m2 <- lmer(data = dpp, accuracy ~ condition + (1 | gameID) + (1 | targetName))
+m3 <- lmer(data = dpp, accuracy ~ phase + condition + (1 | gameID) + (1 | targetName))
+m4 <- lmer(data = dpp, accuracy ~ phase * condition + (1 | gameID) + (1 | targetName))
+anova(m1,m2,m3,m4)
+summary(m4)
+
+```
+
+Visualize change in accuracy
+```{r}
+
+dpp.boot<- d %>%
+  group_by(phase_number,condition) %>%
+  tidyboot_mean(column=accuracy, nboot=1000)
+
+dpp.boot %>%
+  ggplot(aes(x=phase_number,y=empirical_stat, color=condition, fill=condition)) +
+    geom_errorbar(aes(ymin=ci_lower, ymax = ci_upper), width = 0, size = 1.5,
+                  data = dpp.boot %>% filter(condition == 'control')) +  
+    geom_errorbar(aes(ymin=ci_lower, ymax = ci_upper), width = 0, size = 1.5,
+                data = dpp.boot %>% filter(condition == 'repeated')) + # position = dodge,
+    geom_line(size=1.5)+
+    geom_point(size = 4) +
+    ylab("F1 score") +
+    xlab("attempt") +
+    theme_few() +
+    # scale_x_continuous(breaks = round(seq(1, 4, by =1),1)) +
+    xlim(c(0.5,4.5)) +  
+    ylim(c(0.6,1)) +
+    scale_x_continuous(limits = c(0.6,4.4), breaks = c(1,2,3,4),labels=c('first', '2nd','3rd','final')) +
+    # scale_y_continuous(breaks = seq(-0.5,2.5,0.5)) +
+    scale_color_manual(values=c("#77798c", "#1c373e")) +
+    scale_fill_manual(values=c("#77798c", "#1c373e")) +
+    theme(legend.position = 'FALSE', text = element_text(size=16), element_line(size=1), element_rect(size=2, color="#00000"))
+ggsave('../figures/block_silhouette_accuracy_timeseries.pdf', width=6, height=8, units='cm', useDingbats = F)
+```
 
 #### Additional Confirmatory analyses, which I will only attempt to replicate if there is time.
 
