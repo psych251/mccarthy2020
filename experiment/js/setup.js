@@ -26,20 +26,27 @@ var randID =  Math.random().toString(36).substring(2, 15) + Math.random().toStri
 //console.log(randID);
 //console.log('iteration: ', iterationName);
 
-function submit2AMT() {
+function submit2Prolific() {
   scoreToTurk = Math.max(score,cumulBonus);
-  console.log('attempting to send data to mturk! score = ', scoreToTurk);
-  jsPsych.turk.submitToTurk({'score':scoreToTurk});
+  // FIXME: need to send score to Prolific?
+  //console.log('attempting to send data to mturk! score = ', scoreToTurk);
+  //jsPsych.turk.submitToTurk({'score':scoreToTurk});
+
+  // https://github.com/cogtoolslab/handy_tips/blob/master/MTurk_to_Prolific.md#step-3-manage-study-completion
+  console.log('attempting to redirect to prolific!');
+  // TODO: replace XXXX with completion code from Prolific.co
+  window.open("https://app.prolific.co/submissions/complete?cc=XXXXXXX", "_self");
 }
 
 var goodbyeTrial = {
   type: 'instructions',
   pages: [
     '<p>Thanks for participating in our experiment! You are all done. Please \
-     click the button to submit this HIT. <b> If a popup appears asking you if you want to leave, please say YES to LEAVE THIS PAGE and submit the HIT.</b></p>'
+     click the button to complete this study and return to Prolific. <b> \
+     If a popup appears asking you if you want to leave, please say YES to LEAVE THIS PAGE and submit the HIT.</b></p>'
   ],
   show_clickable_nav: true,
-  on_finish: function() { submit2AMT();}
+  on_finish: function() { submit2Prolific();}
 };
 
 var consentHTML = {
@@ -251,6 +258,7 @@ function setupGame () {
     //console.log(d);
 
     // get workerId, etc. from URL (so that it can be sent to the server)
+    // FIXME: get preview mode info from prolific
     var turkInfo = jsPsych.turk.turkInfo(); 
 
     //console.log(turkInfo.workerId);
@@ -296,6 +304,7 @@ function setupGame () {
       trials.unshift(practiceTrial);
       
       // Stick welcome trial at beginning & goodbye trial at end
+      // FIXME: preview mode on Prolific? how to ascertain this...
       if (!turkInfo.previewMode) { 
         trials.unshift(welcomeTrial);
       } else {

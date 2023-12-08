@@ -499,8 +499,7 @@ var sendData = function (eventType, trialObj) {
      *      - resetData
     */
 
-    // info from mturk
-    var turkInfo = jsPsych.turk.turkInfo();
+    // replication: switching to Prolific
 
     // common info to send to mongo
     var commonInfo = {
@@ -508,9 +507,11 @@ var sendData = function (eventType, trialObj) {
         dbname: dbname,
         colname: colname,
         iterationName: trialObj.iterationName,
-        workerId: turkInfo.workerId,
-        hitID: turkInfo.hitId,
-        aID: turkInfo.assignmentId,
+        // https://www.jspsych.org/7.0/overview/prolific/#capturing-the-participant-id-study-id-and-session-id
+        // also https://github.com/cogtoolslab/handy_tips/blob/master/MTurk_to_Prolific.md#step-2-configure-your-study-to-collect-prolific-parameters
+        prolific_PID: jspsych.data.getURLVariable("PROLIFIC_PID"),
+        prolific_STUDY_ID: jspsych.data.getURLVariable("STUDY_ID"),
+        prolific_SESSION_ID: jspsych.data.getURLVariable("SESSION_ID"),
         gameID: trialObj.gameID,
         version: trialObj.versionInd,
         randID: trialObj.randID, // additional random ID in case none assigned from other sources
