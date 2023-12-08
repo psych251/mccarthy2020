@@ -258,8 +258,7 @@ function setupGame () {
     //console.log(d);
 
     // get workerId, etc. from URL (so that it can be sent to the server)
-    // FIXME: get preview mode info from prolific
-    var turkInfo = jsPsych.turk.turkInfo(); 
+    //var turkInfo = jsPsych.turk.turkInfo();
 
     //console.log(turkInfo.workerId);
 
@@ -304,12 +303,12 @@ function setupGame () {
       trials.unshift(practiceTrial);
       
       // Stick welcome trial at beginning & goodbye trial at end
-      // FIXME: preview mode on Prolific? how to ascertain this...
-      if (!turkInfo.previewMode) { 
-        trials.unshift(welcomeTrial);
-      } else {
-        trials.unshift(previewTrial); // if still in preview mode, tell them to accept first.
-      }
+      trials.unshift(welcomeTrial);
+      //if (!turkInfo.previewMode) {
+      //  trials.unshift(welcomeTrial);
+      //} else {
+      //  trials.unshift(previewTrial); // if still in preview mode, tell them to accept first.
+      //}
 
     }
 
