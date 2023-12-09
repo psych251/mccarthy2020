@@ -197,6 +197,9 @@ The below analyses and methods have outputs on Pilot A sample, not the actual re
 
 ## Results
 
+### Effect from original manuscript (figure)
+![Participants improve globally in block tower construction by practicing on a few towers (McCarthy, Kirsh, & Fan, 2020).](mccarthy2020_f1score_improvement.png)
+
 ### Data preparation
 
 In accordance with the analysis plan, I expect to prepare data as follows:
