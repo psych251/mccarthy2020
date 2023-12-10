@@ -24,9 +24,10 @@ knitr::opts_chunk$set(echo = TRUE)
 
 ```{r import}
 
-iterationName = 'mccarthy2020cogsci_replication_pilotA'
+iterationName = 'mccarthy2020cogsci_replication_pilotB'
+runName = 'pilotB'
 
-df.full = read.csv(paste('../results/block_construction_replication2023/csv/block_silhouette_',iterationName,'_good.csv', sep=''))
+df.full = read.csv(paste('../data/', runName, '/preprocessed/block_silhouette_',iterationName,'_good.csv', sep=''))
 
 d <- df.full %>%
   select(rawF1DiscreteScore,phase,phase_extended,phase_number,condition,trialNum,targetName,gameID,numBlocks,repetition,blockFell,buildTime,buggy,perfectScore,meanIBI,thinkingTime) %>%
@@ -95,6 +96,9 @@ d.blockFell
 
 
 ```{r}
+# beware of incompatible Matrix binaries. if you receive an error such as:
+#   function 'cholmod_factor_ldetA' not provided by package 'Matrix'
+# then follow instructions here: https://stackoverflow.com/a/77532685
 ## fit model to data just comparing pre/post
 dpp <- d %>% filter(phase %in% c('pre','post')) %>% mutate(phase = factor(phase,levels=c("pre","post")))
 m1 <- lmer(data = dpp, accuracy ~ phase + (1 | gameID) + (1 | targetName))
