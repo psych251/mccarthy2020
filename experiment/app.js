@@ -54,8 +54,8 @@ io.on('connection', function (socket) {
 
   if (!id || isResearcher && !blockResearcher){
     initializeWithTrials(socket)
-  } else if (!valid_id(id)) {
-    console.log('invalid id, blocked');
+  //} else if (!valid_id(id)) {
+  //  console.log('invalid id, blocked');
   } else {
     checkPreviousParticipant(id, (exists) => {
       return exists ? handleDuplicate(socket) : initializeWithTrials(socket);
