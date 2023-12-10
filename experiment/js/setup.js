@@ -20,33 +20,40 @@ if (dev_mode) {
   build_duration = 60;
 }
 
-var iterationName = 'mccarthy2020cogsci_replication_pilotA';
+var iterationName = 'mccarthy2020cogsci_replication_pilotB';
 
 var randID =  Math.random().toString(36).substring(2, 15) + Math.random().toString(36).substring(2, 15);
 //console.log(randID);
 //console.log('iteration: ', iterationName);
 
-function submit2AMT() {
+function submit2Prolific() {
   scoreToTurk = Math.max(score,cumulBonus);
-  console.log('attempting to send data to mturk! score = ', scoreToTurk);
-  jsPsych.turk.submitToTurk({'score':scoreToTurk});
+  // FIXME: need to send score to Prolific?
+  //console.log('attempting to send data to mturk! score = ', scoreToTurk);
+  //jsPsych.turk.submitToTurk({'score':scoreToTurk});
+
+  // https://github.com/cogtoolslab/handy_tips/blob/master/MTurk_to_Prolific.md#step-3-manage-study-completion
+  console.log('attempting to redirect to prolific!');
+  // redirect with completion code from Prolific.co
+  window.open("https://app.prolific.com/submissions/complete?cc=CZMENLS1", "_self");
 }
 
 var goodbyeTrial = {
   type: 'instructions',
   pages: [
     '<p>Thanks for participating in our experiment! You are all done. Please \
-     click the button to submit this HIT. <b> If a popup appears asking you if you want to leave, please say YES to LEAVE THIS PAGE and submit the HIT.</b></p>'
+     click the button to complete this study and return to Prolific. <b> \
+     If a popup appears asking you if you want to leave, please say YES to LEAVE THIS PAGE and submit the HIT.</b></p>'
   ],
   show_clickable_nav: true,
-  on_finish: function() { submit2AMT();}
+  on_finish: function() { submit2Prolific();}
 };
 
 var consentHTML = {
   'str1' : '<p>Welcome! In this HIT, you will play a fun game in which you build block towers. </p>',
-  'str2' : '<p>Your total time commitment is 30-35 minutes, including the time it takes to read these instructions. For your participation in this study, you will be paid $4. To recognize good performance, you may be paid an additional bonus on top of this base amount. If you encounter technical difficulties during the study that prevent you from completing the experiment, please email the researcher (<b><a href="mailto://sketchloop@gmail.com">sketchloop@gmail.com</a></b>) to arrange for prorated compensation. </p>',
+  'str2' : '<p>Your total time commitment is 30-35 minutes, including the time it takes to read these instructions. For your participation in this study, you will be paid $4. To recognize good performance, you may be paid an additional bonus on top of this base amount. If you encounter technical difficulties during the study that prevent you from completing the experiment, please contact the researcher (<b><a href=\'mailto:stanfordpsych251@gmail.com\'>stanfordpsych251@gmail.com</a></b> if Prolific messaging fails) to arrange for prorated compensation.</p>',
   'str3' : ["<u><p id='legal'>Consenting to Participate:</p></u>",
-	    "<p id='legal'>By completing this HIT, you are participating in a study being performed by cognitive scientists in the UC San Diego Department of Psychology. The purpose of this research is to find out more about how people solve problems. You must be at least 18 years old to participate. There are neither specific benefits nor anticipated risks associated with participation in this study. Your participation in this study is completely voluntary and you can withdraw at any time by simply exiting the study. You may decline to answer any or all of the following questions. Choosing not to participate or withdrawing will result in no penalty. Your anonymity is assured; the researchers who have requested your participation will not receive any personal information about you, and any information you provide will not be shared in association with any personally identifying information. If you have questions about this research, please contact the researchers by sending an email to <b><a href='mailto://sketchloop@gmail.com'>sketchloop@gmail.com</a></b>. These researchers will do their best to communicate with you in a timely, professional, and courteous manner. If you have questions regarding your rights as a research subject, or if problems arise which you do not feel you can discuss with the researchers, please contact the UC San Diego Institutional Review Board. </p>"].join(' ')
+	    "<p id='legal'>By answering the following questions, you are participating in a study being performed by cognitive scientists in the Stanford Department of Psychology. If you have questions about this research, please contact us at <b><a href='mailto:stanfordpsych251@gmail.com'>stanfordpsych251@gmail.com</a></b>. You must be at least 18 years old to participate. Your participation in this research is voluntary. You may decline to answer any or all of the following questions. You may decline further participation, at any time, without adverse consequences. Your anonymity is assured; the researchers who have requested your participation will not receive any personal information about you. There are neither specific benefits nor anticipated risks associated with participation in this study.</p>"].join(' ')
 }
 
 // add welcome page
@@ -128,7 +135,7 @@ function MultiChoicePage () {
 function TextPage () {
   this.type = 'survey-text';
   this.questions = [
-    {name: 'comments', prompt: "Thank you for participating in our study! We would love to hear how you found it. Any comments?", rows: 5, columns: 40, placeholder: "How was that for you? Did you notice any issues?"},
+    {name: 'comments', prompt: "Thank you for participating in our study! The purpose of this research is to find out more about how people solve problems. We would love to hear how you found it. Any comments?", rows: 5, columns: 40, placeholder: "How was that for you? Did you notice any issues?"},
     {name: 'age', prompt: "How old are you?", placeholder: ""}, 
     {name: 'strategies', prompt: "Did you use any strategies?", rows: 5, columns: 50,  placeholder: ""}
   ];
@@ -251,7 +258,7 @@ function setupGame () {
     //console.log(d);
 
     // get workerId, etc. from URL (so that it can be sent to the server)
-    var turkInfo = jsPsych.turk.turkInfo(); 
+    //var turkInfo = jsPsych.turk.turkInfo();
 
     //console.log(turkInfo.workerId);
 
@@ -296,11 +303,12 @@ function setupGame () {
       trials.unshift(practiceTrial);
       
       // Stick welcome trial at beginning & goodbye trial at end
-      if (!turkInfo.previewMode) { 
-        trials.unshift(welcomeTrial);
-      } else {
-        trials.unshift(previewTrial); // if still in preview mode, tell them to accept first.
-      }
+      trials.unshift(welcomeTrial);
+      //if (!turkInfo.previewMode) {
+      //  trials.unshift(welcomeTrial);
+      //} else {
+      //  trials.unshift(previewTrial); // if still in preview mode, tell them to accept first.
+      //}
 
     }
 

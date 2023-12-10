@@ -1,6 +1,10 @@
 # jupyter notebook
 .ipynb_checkpoints
 
+# node
+node_modules
+package-lock.json
+
 # History files
 .Rhistory
 .Rapp.history

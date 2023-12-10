@@ -47,14 +47,15 @@ io.on('connection', function (socket) {
   // Recover query string information and set condition
   var hs = socket.request;
   var query = require('url').parse(hs.headers.referer, true).query;
-  var id = query.workerId;
-  
+  // change to prolific participant ID
+  var id = query.PROLIFIC_PID;
+
   var isResearcher = _.includes(researchers, id);
 
   if (!id || isResearcher && !blockResearcher){
     initializeWithTrials(socket)
-  } else if (!valid_id(id)) {
-    console.log('invalid id, blocked');
+  //} else if (!valid_id(id)) {
+  //  console.log('invalid id, blocked');
   } else {
     checkPreviousParticipant(id, (exists) => {
       return exists ? handleDuplicate(socket) : initializeWithTrials(socket);

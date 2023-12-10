@@ -26,7 +26,7 @@ var aboveGroundProp = floorY / canvasHeight;
 
 // Metavariables
 const dbname = 'block_construction_replication2023';
-const colname = 'block_construction_replication2023_pilotA';  // collection name, not column name!
+const colname = 'block_construction_replication2023_pilotB';  // collection name, not column name!
 
 // Stimulus parameters
 var stimCanvasWidth = canvasWidth;
@@ -486,6 +486,21 @@ var removeStimWindow = function () {
 }
 
 
+function getURLParams() {
+  var match,
+    pl = /\+/g,  // Regex for replacing addition symbol with a space
+    search = /([^&=]+)=?([^&]*)/g,
+    decode = function (s) { return decodeURIComponent(s.replace(pl, " ")); },
+    query = location.search.substring(1);
+
+  var urlParams = {};
+  while ((match = search.exec(query))) {
+    urlParams[decode(match[1])] = decode(match[2]);
+  }
+  return urlParams;
+};
+
+
 var sendData = function (eventType, trialObj) {
 
     //console.log('sending data of type: ', eventType);
@@ -499,8 +514,13 @@ var sendData = function (eventType, trialObj) {
      *      - resetData
     */
 
-    // info from mturk
-    var turkInfo = jsPsych.turk.turkInfo();
+    // replication: switching to Prolific
+    // TODO: only look these up at beginning of experiment, put in trialObj
+    urlParams = getURLParams();
+    console.log("urlParams: ", urlParams.toString());
+    console.log("prolific pid: ", urlParams["PROLIFIC_PID"]);
+    console.log("prolific study id: ", urlParams["STUDY_ID"]);
+    console.log("prolific session id: ", urlParams["SESSION_ID"]);
 
     // common info to send to mongo
     var commonInfo = {
@@ -508,9 +528,12 @@ var sendData = function (eventType, trialObj) {
         dbname: dbname,
         colname: colname,
         iterationName: trialObj.iterationName,
-        workerId: turkInfo.workerId,
-        hitID: turkInfo.hitId,
-        aID: turkInfo.assignmentId,
+        // https://www.jspsych.org/7.0/overview/prolific/#capturing-the-participant-id-study-id-and-session-id
+        // also https://github.com/cogtoolslab/handy_tips/blob/master/MTurk_to_Prolific.md#step-2-configure-your-study-to-collect-prolific-parameters
+        prolific_PID: urlParams["PROLIFIC_PID"],
+        prolific_STUDY_ID: urlParams["STUDY_ID"],
+        prolific_SESSION_ID: urlParams["SESSION_ID"],
+        allURLparams: urlParams,
         gameID: trialObj.gameID,
         version: trialObj.versionInd,
         randID: trialObj.randID, // additional random ID in case none assigned from other sources
