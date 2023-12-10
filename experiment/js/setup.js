@@ -20,7 +20,7 @@ if (dev_mode) {
   build_duration = 60;
 }
 
-var iterationName = 'mccarthy2020cogsci_replication_pilotA';
+var iterationName = 'mccarthy2020cogsci_replication_pilotB';
 
 var randID =  Math.random().toString(36).substring(2, 15) + Math.random().toString(36).substring(2, 15);
 //console.log(randID);
@@ -34,8 +34,8 @@ function submit2Prolific() {
 
   // https://github.com/cogtoolslab/handy_tips/blob/master/MTurk_to_Prolific.md#step-3-manage-study-completion
   console.log('attempting to redirect to prolific!');
-  // TODO: replace XXXX with completion code from Prolific.co
-  window.open("https://app.prolific.co/submissions/complete?cc=XXXXXXX", "_self");
+  // redirect with completion code from Prolific.co
+  window.open("https://app.prolific.com/submissions/complete?cc=CZMENLS1", "_self");
 }
 
 var goodbyeTrial = {
