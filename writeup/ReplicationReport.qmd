@@ -111,6 +111,8 @@ The code for running the version of the experiment reported in the paper is [her
 In analyses of fine-grained changes in behavior across successive attempts on the same tower, we restrict our analysis to the control [sic] sets."
 I'm pretty sure they meant "repeated" sets here.
 
+Subjects who are not fluent in English will be excluded.
+
 #### Improvements in reconstruction accuracy
 
 **The key analysis of interest (although there are really multiple) is whether participants' accuracy in reconstructions improved over time.**
@@ -181,12 +183,12 @@ Specifically, how do we effectively quantify the similarity between two reconstr
 
 [You can comment this section out prior to final report with data collection.]
 
-# Pilot A Notice
-This is a pilot run on non-naive participants (n=2) to test the experiment and analysis pipeline.
-Pilot A experiment can be accessed here (for a limited time):
-[pilotA live experiment link](https://cogtoolslab.org:8860/experiment.html)
+# Pilot B Notice
+This is a pilot run on a few naive participants (n=2) on Prolific to test the experiment and analysis pipeline.
+Pilot B experiment can be accessed here (for a limited time):
+[pilotB live experiment link](https://cogtoolslab.org:8860/experiment.html)
 
-The below analyses and methods have outputs on Pilot A sample, not the actual replication sample.
+The below analyses and methods have outputs on Pilot B sample, not the actual replication sample.
 
 
 #### Actual Sample
@@ -212,7 +214,7 @@ In accordance with the analysis plan, I expect to prepare data as follows:
 Data preparation, exclusions, and filtering were performed using original analysis notebook located here:
 [retrieve data from database notebook link](https://github.com/psych251/mccarthy2020/blob/develop/analysis/block_silhouette_cogsci2020_data_generator.ipynb)
 
-The resulting output CSV was stored as `data/pilotA/preprocessed/block_silhouette_mccarthy2020cogsci_replication_pilotA.csv`.
+The resulting output CSV was stored as `data/pilotB/preprocessed/block_silhouette_mccarthy2020cogsci_replication_pilotB.csv`.
 	
 ```{r include=F}
 ### Data Preparation
@@ -255,9 +257,10 @@ knitr::opts_chunk$set(echo = TRUE)
 Import and apply preprocessing.
 ```{r import}
 
-iterationName = 'mccarthy2020cogsci_replication_pilotA'
+iterationName = 'mccarthy2020cogsci_replication_pilotB'
+runName = 'pilotB'
 
-df.full = read.csv(paste('../data/pilotA/preprocessed/block_silhouette_',iterationName,'_good.csv', sep=''))
+df.full = read.csv(paste('../data/', runName, '/preprocessed/block_silhouette_',iterationName,'_good.csv', sep=''))
 
 d <- df.full %>%
   select(rawF1DiscreteScore,phase,phase_extended,phase_number,condition,trialNum,targetName,gameID,numBlocks,repetition,blockFell,buildTime,buggy,perfectScore,meanIBI,thinkingTime) %>%
@@ -273,7 +276,7 @@ dpp <- d %>% filter(phase %in% c('pre','post')) %>%
   mutate(phase = factor(phase,levels=c("pre","post")))
 ```
 
-F1 score on completed block towers, limear mixed effects model.
+F1 score on completed block towers, linear mixed effects model.
 ```{r}
 # beware of incompatible Matrix binaries. Follow: https://stackoverflow.com/a/77532685
 ## fit model to data just comparing pre/post
