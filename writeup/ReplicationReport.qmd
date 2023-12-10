@@ -1,0 +1,348 @@
+---
+title: "Replication of Study 1 by McCarthy, Kirsh & Fan (2020, Proceedings of Cognitive Science Society)"
+author: "Sean P. Anderson (seanpaul@stanford.edu)"
+date: "`r format(Sys.time(), '%B %d, %Y')`"
+format:
+  html:
+    toc: true
+    toc_depth: 3
+---
+
+<!-- Replication reports should all use this template to standardize reporting across projects.  These reports will be public supplementary materials that accompany the summary report(s) of the aggregate results. -->
+
+## Introduction
+[No abstract is needed.]  Each replication project will have a straightforward, no frills report of the study and results.  These reports will be publicly available as supplementary material for the aggregate report(s) of the project as a whole.  Also, to maximize project integrity, the intro and methods will be written and critiqued in advance of data collection.  Introductions can be just 1-2 paragraphs clarifying the main idea of the original study, the target finding for replication, and any other essential information.  It will NOT have a literature review -- that is in the original publication. You can write both the introduction and the methods in past tense.  
+
+### Why this experiment
+My current research ideas are driven by this question: how does making something change you?
+Some of these cognitive changes I hope to elucidate are the mechanisms by which people get better at complex skills.
+Skills like cooking, music, or skateboarding exhibit massive state spaces and nontrivial dynamics.
+Simulation and prediction in these scenarios is necessary for success but requires significant computational resources.
+This implies that increasingly complex solutions are increasingly inaccessible to the mind, given the limit of available cognitive resources.
+Even with small amounts of experience, people learn from interacting with the environment and perform in a way that transcends these limits.
+This requires leveraging the power of abstraction: integrating both action and prediction in a structure that exploits the causal dynamics of the domain.
+
+This experiment studies human learning in a rich task that requires maneuvering in a large state space (block tower construction).
+Their results demonstrate people improving their construction ability in simulated building as they acquire more experience.
+Analyses suggest that participants use overlapping procedures (sequences of block placements) while building a variety of block towers by the end of the experiment.
+While this study's analyses do not investigate procedural abstractions directly, it is likely that subjects are employing some abstractions to facilitate their performance.
+Thus it would be motivating for my research questions to see humans' rapid increase in tower-building performance replicated with a new subject pool.
+Additionally, this experiment contains several software tools that are used frequently in my lab.
+It would be greatly beneficial to become fully familiar with these methods as I work towards contributing more actively to my lab's research program.
+
+### Stimuli, Procedures, and Challenges
+Subjects are presented with silhouettes of discrete block tower arrangements.
+They are asked to re-build these towers in a (also discrete) block placement interface with simulated gravity.
+If at any point the block tower is unstable the trial is ended and a new silhouette is presented.
+Similarly, the trial was ended if the subjects took longer than 60 seconds to build their tower.
+Subjects built eight distinct towers (each hand-crafted by experimenters).
+Four of these towers were control towers, each built once at start of experiment and once again at end of experiment.
+The other four were "repeat" towers, each built four times.
+The build order for repeat towers was intermixed between the control towers.
+Dependent measures of interest included the time to build each tower, the resulting towers built (so that accuracy of reconstruction could be calculated), and the sequence of block placements subjects used to complete the objective.
+Analyses included measuring performance improvements and similarity between build trajectories across the experiment and subjects.
+
+
+Challenges of replicating this study include:
+
+* porting the experiment interface to Prolific (originally run on Amazon mTurk),
+* successfully completing data collection with existing experimenter code (although the original repository is highly documented, and all necessary code is available), and
+* reaching familiarity with original code, to the point where (minor) improvements could be made if possible.
+
+### Repository location
+* [Replication repository](https://github.com/psych251/mccarthy2020)
+* [Original manuscript](https://github.com/psych251/mccarthy2020/blob/develop/original_paper/McCarthy_Kirsh_Fan_2020_CogSci.pdf)
+
+## Methods
+
+### Power Analysis
+
+Original effect size, power analysis for samples to achieve 80%, 90%, 95% power to detect that effect size.  Considerations of feasibility for selecting planned sample size.
+
+### Planned Sample
+
+[Planned sample size and/or termination rule, sampling frame, known demographics if any, preselection rules if any.]
+
+Sample will be participants recruited on Prolific (note that original paper recruited 107 participants on Amazon Mechanical Turk).
+Planned sample size is 52, which is approaching original sample size up to budget limitations.
+
+### Materials
+
+[All materials - can quote directly from original article - just put the text in quotations and note that this was followed precisely.  Or, quote directly and just point out exceptions to what was described in the original article.]
+
+8 block tower silhouettes were used as stimuli in experiment. These are saved  in JSON format [here](https://github.com/cogtoolslab/block_construction/tree/master/stimuli/cogsci_silhouette_subset).
+
+### Procedure	
+
+[Can quote directly from original article - just put the text in quotations and note that this was followed precisely.  Or, quote directly and just point out exceptions to what was described in the original article.]
+
+Quoting directly from original article (McCarthy, Kirsh, & Fan, 2020):
+"On each trial, participants were presented with two adjacent display windows: On the left, a target block tower was presented as a silhouette centered on the floor in a 18x13 rectilinear grid environment; on the right, they were provided with an open building environment and a fixed inventory of five types of rectangular blocks that varied in their dimensions (i.e., `1x2`, `2x1`, `2x2`, `2x4`, `4x2`)."
+
+Participants were instructed to "build a tower that matched the shape of the target silhouette in less than 60 seconds using any combination of the blocks provided.
+To select a specific block type, they clicked on its image in the block inventory.
+Then, by hovering the mouse cursor over the building environment, a translucent block would appear, showing where the block would be placed when they clicked the mouse again.
+Blocks could be placed on any level surface in the building environment (i.e., either the floor or on top of another block).
+To minimize the intrusion of low-level motor noise in block placement, the locations of each block ‘snapped’ to grid."
+
+"After the placement of each block, participants’ towers became subject to gravity, simulated using Matter.js.
+Thus, if their tower was not sufficiently stable, single blocks or even the entire tower could fall over.
+After 60 seconds had elapsed or if any block fell, the trial immediately ended and participants moved onto the next tower.
+Participants were rewarded for both accuracy and speed: the more accurate their reconstructions, the larger the monetary bonus they received": [$0.05](https://github.com/cogtoolslab/block_construction/blob/5059ead074f14219e8d475bd256539daa6784c0b/experiments/silhouette/static/js/setup.js#L55C60-L55C71).
+"If they perfectly reconstructed the target silhouette, they could earn an additional [$0.01] bonus for speed."
+Looking at experiment code, it looks like they needed to complete the tower in less than 15 seconds to receive the full \$0.01 bonus, or within 30 seconds to receive a \$0.005 bonus.
+
+For the whole experiment, participants were [paid 4$](https://github.com/cogtoolslab/block_construction/blob/5059ead074f14219e8d475bd256539daa6784c0b/experiments/silhouette/static/js/setup.js#L47) (not including bonuses).
+
+#### Within-subj tower conditions
+"For each participant, the 8 block towers were randomly split into 2 sets containing 4 towers each: a repeated set and a control set.
+Repeated towers were attempted 4 times, randomly interleaved among other towers.
+Control towers were attempted twice, once near the beginning and once near the end of each session, randomly interleaved among other towers.
+Thus there were a total of 24 trials in each session, including 8 first attempts and 8 final attempts of each tower."
+
+#### Experiment code
+The code for running the version of the experiment reported in the paper is [here](https://github.com/cogtoolslab/block_construction/tree/master/experiments/silhouette/static).
+
+### Analysis Plan
+
+[Can also quote directly, though it is less often spelled out effectively for an analysis strategy section.  The key is to report an analysis strategy that is as close to the original - data cleaning rules, data exclusion rules, covariates, etc. - as possible.]
+
+"In subsequent comparisons between the first and final attempts on each tower, we combine data from both repeated and control sets.
+In analyses of fine-grained changes in behavior across successive attempts on the same tower, we restrict our analysis to the control [sic] sets."
+I'm pretty sure they meant "repeated" sets here.
+
+Subjects who are not fluent in English will be excluded.
+
+#### Improvements in reconstruction accuracy
+
+**The key analysis of interest (although there are really multiple) is whether participants' accuracy in reconstructions improved over time.**
+
+(1) "We used the F1 score as our primary measure of reconstruction accuracy, which reflects the degree to which the shape of participants’ reconstruction coincided with the target silhouette, and lies in the range [0,1], where higher scores indicate higher accuracy."
+"To evaluate changes in reconstruction accuracy over time, we fit a linear mixed-effects model predicting F1 score from attempt (first, final) and condition (repeated, control) as fixed effects, including random intercepts for participant and tower."
+
+(2) "To evaluate [whether participants learn to more consistently place blocks fully contained in the silhouette], we defined the spatial error for a given tower on a given attempt as the root-mean-squared cityblock distance between each location in the heatmap and the edge of the target silhouette (zero if within the silhouette), weighted by the value at each location in the heatmap. We then computed the mean change in spatial error between their first and final attempts."
+
+#### The following analyses would be cool to also replicate but I will not do unless there is extra time.
+
+##### Improvements in reconstruction "fluency" (speed, block placements)
+
+Additionally, an important finding is whether participants' additionally became faster in their fully accurate and mostly accurate reconstructions.
+
+(3) "To evaluate this possibility, we modeled the change in the number of blocks used between the first and final attempts using a linear mixed-effects model otherwise identical in structure to that previously used to analyze accuracy, however we excluded trials which were truncated due to blocks falling."
+
+(4) "We estimated task fluency by computing the mean time between successive block placements within a single trial.
+We estimated preparation time by computing the time between trial onset and the placement of the first block."
+It seems these were assessed as part of linear models predicting fluency/prep time from attempt. But it is a little unclear in the text.
+
+(5) "To quantify how quickly participants completed their reconstructions, we measured the amount of time elapsed between the start of each trial and the final block placement on that trial, again omitting trials which were truncated due to falling blocks."
+
+(6) "To evaluate changes in build time between the first and final attempt, we fit a linear mixed-effects model including attempt (first, final) and condition (repeated, control) as fixed effects, including random intercepts for participant and tower."
+
+(7) "We included an additional binary variable in our regression model indicating whether a trial contained a perfect reconstruction" to analyze whether "these ‘perfect’ reconstructions took reliably less time than imperfect reconstructions."
+We tested for an "interaction between attempt number and this binary variable" to assess whether "decreases in build time from first to final attempts were greater for perfect reconstructions"
+
+##### "Change[s] in reconstruction procedure"
+
+(8) "To directly assess the extent to which participants reused previously used procedures across attempts, we derived a measure of the similarity between two procedures, which evaluates how similar the individual actions comprising each procedure are.
+Each action consists of an individual block placement, represented by a 4-vector [x, y, w, h], where 0 ≤ x ≤ 15, 0 ≤ y ≤ 13 represents the coordinates of the bottom-left corner of the current block and where (w,h) $\in$ \{(1, 2), (2, 1), (2, 2), (2, 4), (4, 2)\} represent its width and height, respectively.
+Each procedure consists of the full sequence of such actions performed on a given reconstruction attempt. For any pair of action sequences, we define the “raw action dissimilarity” as the mean Euclidean distance between corresponding pairs of [x, y, w, h] action vectors.
+When two sequences are of different lengths, we evaluate this metric over the first k actions in both, where k represents the length of the shorter sequence.
+As this measure compares the dissimilarity of sequences on an action-by-action basis, it assumes that when a ‘similar’ plan is executed again, that similar actions are performed in exactly the same order."
+
+(9) "To obtain a measure of similarity between procedures that is robust to differences in the exact order in which actions are performed, we also derived a “transformed” measure of dissimilarity between sets of actions.
+We used the Kuhn-Munkres algorithm to identify the one-to-one mapping between each pair of action sequences minimizing the Euclidean distance between them.
+This 'transformed' measure has the advantage of being sensitive to correspondences between similar actions performed in different attempts, even when they were performed in a different order.
+We fit both raw and transformed action dissimilarities with a linear mixed-effects model including fixed effects for attempt pair, the accuracy of the previous attempt, and the dissimilarity type (raw or transformed), as well as random intercepts for tower and participant."
+
+(10) "To the extent that accuracy on prior attempts is related to how much participants alter their procedure in subsequent attempts, we would predict that more successful procedures are more likely to be reused than unsuccessful ones.
+Consistent with this prediction, we" assessed whether there was a "negative relationship between accuracy on the most recent attempt and how much they changed their procedure."
+
+##### Across individuals, "consistency and variability in procedures"
+
+(11) "To rigorously quantify participants’ systematic biases toward certain states, we computed the Gini index ($G$) over the frequency of visits to each state across all participants.
+To estimate how strongly human policies concentrate on the same sequences of states at different timescales, we next extracted n-gram representations for all state trajectories, each defined by n successive states, for 1 ≤ n ≤ 10, then calculated $G_n$ for each of these n-gram frequency distributions.
+To provide a baseline, we also constructed a random-policy agent that samples blocks and viable locations (i.e., within silhouette, maintaining stability) with equal probability.
+We used this random-policy agent to generate a null distribution of 1000 Gini values, each computed from 105 random-policy agents identified by unique random seeds."
+
+(12) "To evaluate" whether participants are biased to discover similar solutions over time, "we fit human Gini values with a linear mixed-effects model including attempt number, linear and quadratic terms for n, as well as random intercepts for target towers and participants."
+We then asessed whether the Gini index grew between first and final attempts.
+Although such convergence is one signature of using similar procedures, the above analysis is insensitive to cases where two participants reconstruct a silhouette by placing the same blocks in the same locations, yet only have first and final world states in common.
+To address this limitation, we examined the distribution of dissimilarities between the sets of actions performed by different participants.
+
+#### Additional analyses (not in original paper)
+[You can also pre-specify additional analyses you plan to do.]
+
+I am thinking of other possible ways to analyze the block-building trajectories within and between participants.
+Specifically, how do we effectively quantify the similarity between two reconstruction trajectories?
+
+### Differences from Original Study
+
+[Explicitly describe known differences in sample, setting, procedure, and analysis plan from original study.  The goal, of course, is to minimize those differences, but differences will inevitably occur.  Also, note whether such differences are anticipated to make a difference based on claims in the original article or subsequent published research on the conditions for obtaining the effect.]
+
+### Methods Addendum (Post Data Collection)
+
+[You can comment this section out prior to final report with data collection.]
+
+# Pilot B Notice
+This is a pilot run on a few naive participants (n=2) on Prolific to test the experiment and analysis pipeline.
+Pilot B experiment can be accessed here (for a limited time):
+[pilotB live experiment link](https://cogtoolslab.org:8860/experiment.html)
+
+The below analyses and methods have outputs on Pilot B sample, not the actual replication sample.
+
+
+#### Actual Sample
+  [Sample size, demographics, data exclusions based on rules spelled out in analysis plan]
+
+#### Differences from pre-data collection methods plan
+  Any differences from what was described as the original plan, or “none”.
+
+## Results
+
+### Effect from original manuscript (figure)
+![Participants improve globally in block tower construction by practicing on a few towers (McCarthy, Kirsh, & Fan, 2020).](mccarthy2020_f1score_improvement.png)
+
+### Data preparation
+
+In accordance with the analysis plan, I expect to prepare data as follows:
+
+* convert block reconstruction data to long-format. I'll need columns for all of the analyses to follow.
+  * each row would be one block placement action.
+* Compute F1 score of completed towers. Also compute 1-0 accuracy of completed towers.
+  * likely will make a separate table just for completed towers (in long format)
+
+Data preparation, exclusions, and filtering were performed using original analysis notebook located here:
+[retrieve data from database notebook link](https://github.com/psych251/mccarthy2020/blob/develop/analysis/block_silhouette_cogsci2020_data_generator.ipynb)
+
+The resulting output CSV was stored as `data/pilotB/preprocessed/block_silhouette_mccarthy2020cogsci_replication_pilotB.csv`.
+	
+```{r include=F}
+### Data Preparation
+
+#### Load Relevant Libraries and Functions
+
+#### Import data
+
+#### Data exclusion / filtering
+
+#### Prepare data for analysis - create columns etc.
+```
+
+### Confirmatory analysis
+
+[The analyses as specified in the analysis plan.]
+
+* Run linear mixed effects model on F1 score of completed towers (1)
+  * This contains only towers in the repeated condition.
+* Compute manhattan distance accuracy measure on completed towers (2).
+* Run linear mixed effects model on time to completion of completed towers (3)
+* Retrieve time to first block placement and run linear model to check effects of attempt, etc. (as in 3 and 1) (4)
+* Compute duration between placement of final block and placement of first block, then run linear effects model (5, 6)
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+library(broom)
+library(tidyverse)
+library(tidyboot)
+library(knitr)
+library(ggplot2)
+library(ggthemes)
+library(broom)
+library(lme4)
+library(lmerTest)
+library(numform)
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+Import and apply preprocessing.
+```{r import}
+
+iterationName = 'mccarthy2020cogsci_replication_pilotB'
+runName = 'pilotB'
+
+df.full = read.csv(paste('../data/', runName, '/preprocessed/block_silhouette_',iterationName,'_good.csv', sep=''))
+
+d <- df.full %>%
+  select(rawF1DiscreteScore,phase,phase_extended,phase_number,condition,trialNum,targetName,gameID,numBlocks,repetition,blockFell,buildTime,buggy,perfectScore,meanIBI,thinkingTime) %>%
+  rename('preparationTime'='thinkingTime') %>%
+  rename('accuracy'='rawF1DiscreteScore') %>%
+  mutate(phase=factor(phase, levels=c('pre','repeated','post'))) %>%
+  mutate(phase_extended=factor(phase_extended, levels=c("pre","repeated","post"))) %>%
+  mutate(blockFell = as.logical(blockFell)) %>%
+  mutate(perfect = ifelse(accuracy>0.99, TRUE, FALSE)) %>% 
+  mutate(buildTimeSec = buildTime/1000)
+
+dpp <- d %>% filter(phase %in% c('pre','post')) %>%
+  mutate(phase = factor(phase,levels=c("pre","post")))
+```
+
+F1 score on completed block towers, linear mixed effects model.
+```{r}
+# beware of incompatible Matrix binaries. Follow: https://stackoverflow.com/a/77532685
+## fit model to data just comparing pre/post
+dpp <- d %>% filter(phase %in% c('pre','post')) %>% mutate(phase = factor(phase,levels=c("pre","post")))
+m1 <- lmer(data = dpp, accuracy ~ phase + (1 | gameID) + (1 | targetName))
+m2 <- lmer(data = dpp, accuracy ~ condition + (1 | gameID) + (1 | targetName))
+m3 <- lmer(data = dpp, accuracy ~ phase + condition + (1 | gameID) + (1 | targetName))
+m4 <- lmer(data = dpp, accuracy ~ phase * condition + (1 | gameID) + (1 | targetName))
+anova(m1,m2,m3,m4)
+summary(m4)
+
+```
+
+Visualize change in accuracy
+```{r}
+
+dpp.boot<- d %>%
+  group_by(phase_number,condition) %>%
+  tidyboot_mean(column=accuracy, nboot=1000)
+
+dpp.boot %>%
+  ggplot(aes(x=phase_number,y=empirical_stat, color=condition, fill=condition)) +
+    geom_errorbar(aes(ymin=ci_lower, ymax = ci_upper), width = 0, size = 1.5,
+                  data = dpp.boot %>% filter(condition == 'control')) +  
+    geom_errorbar(aes(ymin=ci_lower, ymax = ci_upper), width = 0, size = 1.5,
+                data = dpp.boot %>% filter(condition == 'repeated')) + # position = dodge,
+    geom_line(size=1.5)+
+    geom_point(size = 4) +
+    ylab("F1 score") +
+    xlab("attempt") +
+    theme_few() +
+    # scale_x_continuous(breaks = round(seq(1, 4, by =1),1)) +
+    xlim(c(0.5,4.5)) +  
+    ylim(c(0.6,1)) +
+    scale_x_continuous(limits = c(0.6,4.4), breaks = c(1,2,3,4),labels=c('first', '2nd','3rd','final')) +
+    # scale_y_continuous(breaks = seq(-0.5,2.5,0.5)) +
+    scale_color_manual(values=c("#77798c", "#1c373e")) +
+    scale_fill_manual(values=c("#77798c", "#1c373e")) +
+    theme(legend.position = 'FALSE', text = element_text(size=16), element_line(size=1), element_rect(size=2, color="#00000"))
+ggsave('../figures/block_silhouette_accuracy_timeseries.pdf', width=6, height=8, units='cm', useDingbats = F)
+```
+
+#### Additional Confirmatory analyses, which I will only attempt to replicate if there is time.
+
+* Including 1-0 accuracy as a variable, run previous linear effects model again (7)
+* For each (repeated condition) trial, compute the trajectory vector as described in (8).
+* Continuing with (8), compute the Euclidean distance between successive pairs of attempts on repeated towers (i.e. first-second, second-third, and third-fourth).
+* For each of these pairs, run linear mixed-effects model on these Euclidean distances with variables mentioned in (8)
+* Also compute using the Kuhn-Munkres algorithm the alternative distance between trajectory pairs (9) ("transformed")
+* Continuing with (9), run linear mixed-effects model to predict the "transformed" distances.
+* Compute change in accuracy (F1 Score) between reconstruction pairs. Run linear model predicting accuracy using distances as a predictor (10).
+* Using the trajectory vectors computed earlier, make 10 different tables, each with $n=$1 through 10 n-grams of the actions. (11)
+* Continuing with (11), compute the Gini index on these n-grams.
+
+*Side-by-side graph with original graph is ideal here*
+
+### Exploratory analyses
+
+Any follow-up analyses desired (not required).  
+
+## Discussion
+
+### Summary of Replication Attempt
+
+Open the discussion section with a paragraph summarizing the primary result from the confirmatory analysis and the assessment of whether it replicated, partially replicated, or failed to replicate the original result.  
+
+### Commentary
+
+Add open-ended commentary (if any) reflecting (a) insights from follow-up exploratory analysis, (b) assessment of the meaning of the replication (or not) - e.g., for a failure to replicate, are the differences between original and present study ones that definitely, plausibly, or are unlikely to have been moderators of the result, and (c) discussion of any objections or challenges raised by the current and original authors about the replication attempt.  None of these need to be long.
