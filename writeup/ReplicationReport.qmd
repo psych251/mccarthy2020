@@ -11,7 +11,6 @@ format:
 <!-- Replication reports should all use this template to standardize reporting across projects.  These reports will be public supplementary materials that accompany the summary report(s) of the aggregate results. -->
 
 ## Introduction
-[No abstract is needed.]  Each replication project will have a straightforward, no frills report of the study and results.  These reports will be publicly available as supplementary material for the aggregate report(s) of the project as a whole.  Also, to maximize project integrity, the intro and methods will be written and critiqued in advance of data collection.  Introductions can be just 1-2 paragraphs clarifying the main idea of the original study, the target finding for replication, and any other essential information.  It will NOT have a literature review -- that is in the original publication. You can write both the introduction and the methods in past tense.  
 
 ### Why this experiment
 My current research ideas are driven by this question: how does making something change you?
@@ -42,7 +41,6 @@ The build order for repeat towers was intermixed between the control towers.
 Dependent measures of interest included the time to build each tower, the resulting towers built (so that accuracy of reconstruction could be calculated), and the sequence of block placements subjects used to complete the objective.
 Analyses included measuring performance improvements and similarity between build trajectories across the experiment and subjects.
 
-
 Challenges of replicating this study include:
 
 * porting the experiment interface to Prolific (originally run on Amazon mTurk),
@@ -64,17 +62,13 @@ Original effect size, power analysis for samples to achieve 80%, 90%, 95% power 
 [Planned sample size and/or termination rule, sampling frame, known demographics if any, preselection rules if any.]
 
 Sample will be participants recruited on Prolific (note that original paper recruited 107 participants on Amazon Mechanical Turk).
-Planned sample size is 52, which is approaching original sample size up to budget limitations.
+Planned sample size is 50, which is approaching original sample size up to budget limitations (after pilot participants run)
 
 ### Materials
-
-[All materials - can quote directly from original article - just put the text in quotations and note that this was followed precisely.  Or, quote directly and just point out exceptions to what was described in the original article.]
 
 8 block tower silhouettes were used as stimuli in experiment. These are saved  in JSON format [here](https://github.com/cogtoolslab/block_construction/tree/master/stimuli/cogsci_silhouette_subset).
 
 ### Procedure	
-
-[Can quote directly from original article - just put the text in quotations and note that this was followed precisely.  Or, quote directly and just point out exceptions to what was described in the original article.]
 
 Quoting directly from original article (McCarthy, Kirsh, & Fan, 2020):
 "On each trial, participants were presented with two adjacent display windows: On the left, a target block tower was presented as a silhouette centered on the floor in a 18x13 rectilinear grid environment; on the right, they were provided with an open building environment and a fixed inventory of five types of rectangular blocks that varied in their dimensions (i.e., `1x2`, `2x1`, `2x2`, `2x4`, `4x2`)."
@@ -93,6 +87,7 @@ Participants were rewarded for both accuracy and speed: the more accurate their 
 Looking at experiment code, it looks like they needed to complete the tower in less than 15 seconds to receive the full \$0.01 bonus, or within 30 seconds to receive a \$0.005 bonus.
 
 For the whole experiment, participants were [paid 4$](https://github.com/cogtoolslab/block_construction/blob/5059ead074f14219e8d475bd256539daa6784c0b/experiments/silhouette/static/js/setup.js#L47) (not including bonuses).
+This replication will pay participants 5$ before bonuses.
 
 #### Within-subj tower conditions
 "For each participant, the 8 block towers were randomly split into 2 sets containing 4 towers each: a repeated set and a control set.
@@ -102,16 +97,15 @@ Thus there were a total of 24 trials in each session, including 8 first attempts
 
 #### Experiment code
 The code for running the version of the experiment reported in the paper is [here](https://github.com/cogtoolslab/block_construction/tree/master/experiments/silhouette/static).
+For this replication we are using code available in the [replication repo](https://github.com/psych251/mccarthy2020/tree/main/experiment)
 
 ### Analysis Plan
-
-[Can also quote directly, though it is less often spelled out effectively for an analysis strategy section.  The key is to report an analysis strategy that is as close to the original - data cleaning rules, data exclusion rules, covariates, etc. - as possible.]
 
 "In subsequent comparisons between the first and final attempts on each tower, we combine data from both repeated and control sets.
 In analyses of fine-grained changes in behavior across successive attempts on the same tower, we restrict our analysis to the control [sic] sets."
 I'm pretty sure they meant "repeated" sets here.
 
-Subjects who are not fluent in English will be excluded.
+Subjects who are not fluent in English will be excluded in the replication.
 
 #### Improvements in reconstruction accuracy
 
@@ -120,11 +114,11 @@ Subjects who are not fluent in English will be excluded.
 (1) "We used the F1 score as our primary measure of reconstruction accuracy, which reflects the degree to which the shape of participants’ reconstruction coincided with the target silhouette, and lies in the range [0,1], where higher scores indicate higher accuracy."
 "To evaluate changes in reconstruction accuracy over time, we fit a linear mixed-effects model predicting F1 score from attempt (first, final) and condition (repeated, control) as fixed effects, including random intercepts for participant and tower."
 
-(2) "To evaluate [whether participants learn to more consistently place blocks fully contained in the silhouette], we defined the spatial error for a given tower on a given attempt as the root-mean-squared cityblock distance between each location in the heatmap and the edge of the target silhouette (zero if within the silhouette), weighted by the value at each location in the heatmap. We then computed the mean change in spatial error between their first and final attempts."
-
 #### The following analyses would be cool to also replicate but I will not do unless there is extra time.
 
 ##### Improvements in reconstruction "fluency" (speed, block placements)
+
+(2) "To evaluate [whether participants learn to more consistently place blocks fully contained in the silhouette], we defined the spatial error for a given tower on a given attempt as the root-mean-squared cityblock distance between each location in the heatmap and the edge of the target silhouette (zero if within the silhouette), weighted by the value at each location in the heatmap. We then computed the mean change in spatial error between their first and final attempts."
 
 Additionally, an important finding is whether participants' additionally became faster in their fully accurate and mostly accurate reconstructions.
 
@@ -170,7 +164,6 @@ Although such convergence is one signature of using similar procedures, the abov
 To address this limitation, we examined the distribution of dissimilarities between the sets of actions performed by different participants.
 
 #### Additional analyses (not in original paper)
-[You can also pre-specify additional analyses you plan to do.]
 
 I am thinking of other possible ways to analyze the block-building trajectories within and between participants.
 Specifically, how do we effectively quantify the similarity between two reconstruction trajectories?
@@ -179,28 +172,18 @@ Specifically, how do we effectively quantify the similarity between two reconstr
 
 [Explicitly describe known differences in sample, setting, procedure, and analysis plan from original study.  The goal, of course, is to minimize those differences, but differences will inevitably occur.  Also, note whether such differences are anticipated to make a difference based on claims in the original article or subsequent published research on the conditions for obtaining the effect.]
 
+Differences include: sample size (50 instead of 100+), sample recruitment on Prolific rather than mTurk, and limiting analyses to initial effect.
+
 ### Methods Addendum (Post Data Collection)
-
-[You can comment this section out prior to final report with data collection.]
-
-# Pilot B Notice
-This is a pilot run on a few naive participants (n=2) on Prolific to test the experiment and analysis pipeline.
-Pilot B experiment can be accessed here (for a limited time):
-[pilotB live experiment link](https://cogtoolslab.org:8860/experiment.html)
-
-The below analyses and methods have outputs on Pilot B sample, not the actual replication sample.
 
 
 #### Actual Sample
-  [Sample size, demographics, data exclusions based on rules spelled out in analysis plan]
+[TODO: Sample size, demographics, data exclusions based on rules spelled out in analysis plan]
 
 #### Differences from pre-data collection methods plan
-  Any differences from what was described as the original plan, or “none”.
+Any differences from what was described as the original plan, or “none”.
 
 ## Results
-
-### Effect from original manuscript (figure)
-![Participants improve globally in block tower construction by practicing on a few towers (McCarthy, Kirsh, & Fan, 2020).](mccarthy2020_f1score_improvement.png)
 
 ### Data preparation
 
@@ -215,7 +198,7 @@ Data preparation, exclusions, and filtering were performed using original analys
 [retrieve data from database notebook link](https://github.com/psych251/mccarthy2020/blob/develop/analysis/block_silhouette_cogsci2020_data_generator.ipynb)
 
 The resulting output CSV was stored as `data/pilotB/preprocessed/block_silhouette_mccarthy2020cogsci_replication_pilotB.csv`.
-	
+
 ```{r include=F}
 ### Data Preparation
 
@@ -281,13 +264,10 @@ F1 score on completed block towers, linear mixed effects model.
 # beware of incompatible Matrix binaries. Follow: https://stackoverflow.com/a/77532685
 ## fit model to data just comparing pre/post
 dpp <- d %>% filter(phase %in% c('pre','post')) %>% mutate(phase = factor(phase,levels=c("pre","post")))
-m1 <- lmer(data = dpp, accuracy ~ phase + (1 | gameID) + (1 | targetName))
-m2 <- lmer(data = dpp, accuracy ~ condition + (1 | gameID) + (1 | targetName))
 m3 <- lmer(data = dpp, accuracy ~ phase + condition + (1 | gameID) + (1 | targetName))
 m4 <- lmer(data = dpp, accuracy ~ phase * condition + (1 | gameID) + (1 | targetName))
-anova(m1,m2,m3,m4)
+summary(m3)
 summary(m4)
-
 ```
 
 Visualize change in accuracy
@@ -319,6 +299,10 @@ dpp.boot %>%
 ggsave('../figures/block_silhouette_accuracy_timeseries.pdf', width=6, height=8, units='cm', useDingbats = F)
 ```
 
+#### Effect from original manuscript (figure)
+For direct comparison with original result, see the following:
+![Participants improve globally in block tower construction by practicing on a few towers (McCarthy, Kirsh, & Fan, 2020).](mccarthy2020_f1score_improvement.png)
+
 #### Additional Confirmatory analyses, which I will only attempt to replicate if there is time.
 
 * Including 1-0 accuracy as a variable, run previous linear effects model again (7)
@@ -331,8 +315,6 @@ ggsave('../figures/block_silhouette_accuracy_timeseries.pdf', width=6, height=8,
 * Using the trajectory vectors computed earlier, make 10 different tables, each with $n=$1 through 10 n-grams of the actions. (11)
 * Continuing with (11), compute the Gini index on these n-grams.
 
-*Side-by-side graph with original graph is ideal here*
-
 ### Exploratory analyses
 
 Any follow-up analyses desired (not required).  
@@ -341,8 +323,8 @@ Any follow-up analyses desired (not required).
 
 ### Summary of Replication Attempt
 
-Open the discussion section with a paragraph summarizing the primary result from the confirmatory analysis and the assessment of whether it replicated, partially replicated, or failed to replicate the original result.  
+[Open the discussion section with a paragraph summarizing the primary result from the confirmatory analysis and the assessment of whether it replicated, partially replicated, or failed to replicate the original result.]
 
 ### Commentary
 
-Add open-ended commentary (if any) reflecting (a) insights from follow-up exploratory analysis, (b) assessment of the meaning of the replication (or not) - e.g., for a failure to replicate, are the differences between original and present study ones that definitely, plausibly, or are unlikely to have been moderators of the result, and (c) discussion of any objections or challenges raised by the current and original authors about the replication attempt.  None of these need to be long.
+[Add open-ended commentary (if any) reflecting (a) insights from follow-up exploratory analysis, (b) assessment of the meaning of the replication (or not) - e.g., for a failure to replicate, are the differences between original and present study ones that definitely, plausibly, or are unlikely to have been moderators of the result, and (c) discussion of any objections or challenges raised by the current and original authors about the replication attempt.  None of these need to be long.]
