@@ -26,7 +26,7 @@ var aboveGroundProp = floorY / canvasHeight;
 
 // Metavariables
 const dbname = 'block_construction_replication2023';
-const colname = 'block_construction_replication2023_pilotB';  // collection name, not column name!
+const colname = 'block_construction_replication2023_full';  // collection name, not column name!
 
 // Stimulus parameters
 var stimCanvasWidth = canvasWidth;
